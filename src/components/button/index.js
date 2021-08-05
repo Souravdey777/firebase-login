@@ -20,7 +20,7 @@ const ButtonDiv = styled.button`
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    margin: 32px;
+    margin: 24px;
     color: ${(props) => (props?.primary ? '#ffffff' : '#ff8467')};
     background: ${(props) => (props?.primary ? '#ff8467' : '#191034')};
 `
