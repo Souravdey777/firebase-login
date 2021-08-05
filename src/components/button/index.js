@@ -26,8 +26,8 @@ const ButtonDiv = styled.button`
 `
 
 const ButtonIcon = styled.img`
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
     margin-right: 16px;
 `
 
@@ -43,8 +43,9 @@ const Button = ({ type, onClick, icon, children, ...props }) => {
 export default Button
 
 Button.propTypes = {
-    type: PropTypes.string,
+    type: PropTypes.oneOf(['button', 'submit', 'reset']),
     onClick: PropTypes.func,
     icon: PropTypes.string,
-    children: PropTypes.node
+    children: PropTypes.node,
+    primary: PropTypes.bool
 }

@@ -4,10 +4,11 @@ import Button from '../../components/button'
 import { ROUTES } from '../../utils/routes'
 
 import { ButtonWrapper, Card, PageRoot, Error, H1 } from './style.js'
-import Input from '../../components/inputBox'
+import Input from '../../components/input'
 import { useHistory } from 'react-router-dom'
 
 import GoogleLogo from '../../assets/images/google-logo.png'
+import { isValidEmail, isValidPassword } from '../../utils/validators'
 
 const Login = () => {
     const [islogin, setIsLogin] = React.useState(true)
@@ -18,37 +19,39 @@ const Login = () => {
 
     const history = useHistory()
 
-    const UserRegister = (name, email, password) => {
-        firebase
-            .register(name, email, password)
-            .then(({ user }) => {
-                console.log('Registered', user.displayName)
-                history.push({
-                    pathname: ROUTES.HOME_PAGE,
-                    state: { name: user.displayName }
+    const userRegister = (name, email, password) => {
+        if (checkInput(email, password))
+            firebase
+                .register(name, email, password)
+                .then(({ user }) => {
+                    console.log('Registered', user.displayName)
+                    history.push({
+                        pathname: ROUTES.HOME_PAGE,
+                        state: { name: user.displayName }
+                    })
                 })
-            })
-            .catch((err) => {
-                setError(err.message)
-            })
+                .catch((err) => {
+                    setError(err.message)
+                })
     }
 
-    const UserLogin = (email, password) => {
-        firebase
-            .login(email, password)
-            .then(({ user }) => {
-                console.log('Registered', user.displayName)
-                history.push({
-                    pathname: ROUTES.HOME_PAGE,
-                    state: { name: user.displayName }
+    const userLogin = (email, password) => {
+        if (checkInput(email, password))
+            firebase
+                .login(email, password)
+                .then(({ user }) => {
+                    console.log('Registered', user.displayName)
+                    history.push({
+                        pathname: ROUTES.HOME_PAGE,
+                        state: { name: user.displayName }
+                    })
                 })
-            })
-            .catch((err) => {
-                setError(err.message)
-            })
+                .catch((err) => {
+                    setError(err.message)
+                })
     }
 
-    const GoogleLogin = () => {
+    const googleLogin = () => {
         firebase
             .doSignInWithGoogle()
             .then(({ user }) => {
@@ -61,6 +64,20 @@ const Login = () => {
             .catch((err) => {
                 setError(err.message)
             })
+    }
+
+    const checkInput = (email, password) => {
+        setError('')
+        if (!email || !password) {
+            setError('Please enter email and password')
+        } else if (!isValidEmail(email)) {
+            setError('Please enter valid email')
+        } else if (!isValidPassword(password)) {
+            setError('Please enter valid password')
+        } else {
+            return true
+        }
+        return false
     }
 
     return (
@@ -112,10 +129,10 @@ const Login = () => {
                         placeholder="Password"
                     />
                     {error && <Error className="error">{error}</Error>}
-                    <Button type="submit" onClick={() => UserLogin(email, password)}>
+                    <Button type="submit" onClick={() => userLogin(email, password)}>
                         Login
                     </Button>
-                    <Button icon={GoogleLogo} style={{ backgroundColor: 'white' }} onClick={() => GoogleLogin()}>
+                    <Button icon={GoogleLogo} style={{ backgroundColor: 'white' }} onClick={() => googleLogin()}>
                         Google Login
                     </Button>
                 </Card>
@@ -144,10 +161,10 @@ const Login = () => {
                         placeholder="Password"
                     />
                     {error && <Error className="error">{error}</Error>}
-                    <Button type="submit" onClick={() => UserRegister(email, password)}>
+                    <Button type="submit" onClick={() => userRegister(email, password)}>
                         Register
                     </Button>
-                    <Button icon={GoogleLogo} style={{ backgroundColor: 'white' }} onClick={() => GoogleLogin()}>
+                    <Button icon={GoogleLogo} style={{ backgroundColor: 'white' }} onClick={() => googleLogin()}>
                         Google Login
                     </Button>
                 </Card>
