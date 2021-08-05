@@ -30,7 +30,6 @@ const Login = () => {
             })
             .catch((err) => {
                 setError(err.message)
-                console.log(err.message)
             })
     }
 
@@ -93,13 +92,20 @@ const Login = () => {
                 </Button>
             </ButtonWrapper>
             {islogin ? (
-                <Card>
+                <Card onSubmit={(e) => e.preventDefault()}>
                     <H1>
                         Hi, <br />
                         Welcome back
                     </H1>
-                    <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
                     <Input
+                        autocomplete
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Email"
+                    />
+                    <Input
+                        autocomplete
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
@@ -114,11 +120,24 @@ const Login = () => {
                     </Button>
                 </Card>
             ) : (
-                <Card>
+                <Card onSubmit={(e) => e.preventDefault()}>
                     <H1>Join us</H1>
-                    <Input type="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" />
-                    <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
                     <Input
+                        autocomplete
+                        type="name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="Name"
+                    />
+                    <Input
+                        autocomplete
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Email"
+                    />
+                    <Input
+                        autocomplete
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
@@ -129,7 +148,7 @@ const Login = () => {
                         Register
                     </Button>
                     <Button icon={GoogleLogo} style={{ backgroundColor: 'white' }} onClick={() => GoogleLogin()}>
-                        Login with Google
+                        Google Login
                     </Button>
                 </Card>
             )}

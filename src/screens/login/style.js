@@ -8,7 +8,7 @@ const ButtonWrapper = styled.div`
     width: 100%;
 `
 
-const Card = styled.div`
+const Card = styled.form`
     display: flex;
     flex-direction: column;
     align-items: center;
