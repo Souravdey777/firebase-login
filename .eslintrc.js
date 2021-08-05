@@ -14,7 +14,8 @@ module.exports = {
         }
     },
     env: {
-        browser: true
+        browser: true,
+        node: true
     },
     extends: [
         'eslint:recommended',
@@ -23,7 +24,7 @@ module.exports = {
         'plugin:prettier/recommended'
     ],
     rules: {
-        'prettier/prettier': ['warn', {}, { usePrettierrc: true }], // Use .prettierrc file as source
+        'prettier/prettier': ['warn', { endOfLine: 'auto' }, { usePrettierrc: true }], // Use .prettierrc file as source
         'react/react-in-jsx-scope': 'off',
         'jsx-a11y/no-onchange': 0,
         'jsx-a11y/anchor-is-valid': [

@@ -1,7 +1,5 @@
 import app from 'firebase/app'
 import 'firebase/auth'
-import 'firebase/firestore'
-import 'firebase/storage'
 import firebaseConfig from './config'
 
 class Firebase {
@@ -9,9 +7,6 @@ class Firebase {
         app.initializeApp(firebaseConfig)
         this.app = app
         this.auth = app.auth()
-        this.db = app.firestore()
-        this.storageRef = app.storage().ref()
-        this.imagesRef = this.storageRef.child('images')
         this.googleProvider = new app.auth.GoogleAuthProvider()
     }
 
@@ -22,23 +17,16 @@ class Firebase {
         })
     }
 
-    login(email, password) {
-        return this.auth.signInWithEmailAndPassword(email, password)
+    async login(email, password) {
+        return await this.auth.signInWithEmailAndPassword(email, password)
     }
 
-    doSignInWithGoogle = () => this.auth.signInWithPopup(this.googleProvider)
+    async doSignInWithGoogle() {
+        return await this.auth.signInWithPopup(this.googleProvider)
+    }
 
     logout() {
         return this.auth.signOut()
-    }
-
-    resetPassword(email) {
-        return this.auth.sendPasswordResetEmail(email)
-    }
-
-    async uploadPicture(file) {
-        await this.imagesRef.child(file.name).put(file)
-        return this.imagesRef.child(file.name).getDownloadURL()
     }
 }
 
