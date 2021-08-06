@@ -161,7 +161,7 @@ const Login = () => {
                         placeholder="Password"
                     />
                     {error && <Error className="error">{error}</Error>}
-                    <Button type="submit" onClick={() => userRegister(email, password)}>
+                    <Button type="submit" onClick={() => userRegister(name, email, password)}>
                         Register
                     </Button>
                     <Button icon={GoogleLogo} style={{ backgroundColor: 'white' }} onClick={() => googleLogin()}>
