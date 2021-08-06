@@ -12,9 +12,10 @@ class Firebase {
 
     async register(name, email, password) {
         const newUser = await this.auth.createUserWithEmailAndPassword(email, password)
-        return newUser.user.updateProfile({
+        await newUser.user.updateProfile({
             displayName: name
         })
+        return newUser
     }
 
     async login(email, password) {
