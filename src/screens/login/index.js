@@ -3,7 +3,7 @@ import firebase from '../../utils/firebase'
 import Button from '../../components/button'
 import { ROUTES } from '../../utils/routes'
 
-import { ButtonWrapper, Card, PageRoot, Error, H1 } from './style.js'
+import { ButtonWrapper, Card, PageRoot, Error, H1 } from './styles.js'
 import Input from '../../components/input'
 import { useHistory } from 'react-router-dom'
 

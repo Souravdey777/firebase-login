@@ -21,7 +21,7 @@ const PageRoot = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     background-color: #191034;
 `
 
